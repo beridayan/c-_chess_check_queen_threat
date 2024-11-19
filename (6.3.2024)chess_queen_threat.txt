@@ -1,0 +1,104 @@
+namespace ConsoleApp4
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            bool[,] result = {
+                { false, false, false, false, false, false, false, false } ,
+                { false, false, false, false, false, false, false, false },
+                { false, false, false, false, false, false, false, false },
+                { false, false, false, false, false, false, false, false },
+                { false, false, false, false, false, false, false, false },
+                { false, false, false, false, false, false, false, false },
+                { false, false, false, false, false, false, false, false },
+                { false, false, false, false, false, false, false, false } };
+
+            Console.WriteLine(chess(result));
+        }
+
+        static bool chess(bool[,] result)
+        {
+            int check = 0;
+
+            int rows = result.GetLength(0);
+            int cols = result.GetLength(1);
+
+            for (int j = 0; j < cols; j++)
+            {
+                for (int i = 0; i < rows; i++)
+                {
+                    if (result[i, j] == true)
+                    {
+                        check++;
+                    }
+                    if (check >= 2)
+                    {
+                        return false;
+                    }
+                }
+                check = 0;
+            }
+
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < cols; j++)
+                {
+                    if (result[i, j] == true)
+                    {
+                        check++;
+                    }
+                    if (check >= 2)
+                    {
+                        return false;
+                    }
+                }
+                check = 0;
+            }
+
+            for (int j = 0; j < cols; j++)
+            {
+                for (int i = 0; i < rows; i++)
+                {
+                    if (result[i, j] == true)
+                    {
+                        int b = 0;
+
+                        while (i + b < rows && j + b < cols)
+                        {
+                            if (result[i + b, j + b] == true)
+                            {
+                                check++;
+                            }
+                            b++;
+                        }
+
+                        if (check >= 2)
+                        {
+                            return false;
+                        }
+
+                        b = 0;
+                        check = 0;
+
+                        while (i + b < rows && j - b >= 0)
+                        {
+                            if (result[i + b, j - b] == true)
+                            {
+                                check++;
+                            }
+                            b++;
+                        }
+
+                        if (check >= 2)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+
+            return true;
+        }
+    }
+}
